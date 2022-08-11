@@ -206,6 +206,7 @@ function oraculo() {
   jugarOraculo();
   console.log(matrizMontones);
   cargarMontones(matrizMontones);
+  agregarCartaArriba();
 }
 
 //Matriz de montones. Cuatro arreglos contienen las cartas
@@ -524,13 +525,20 @@ function barajar(baraja) {
   return nuevaBaraja;
 }
 
-//function agregarCartaArriba() {
-//   const arriba = document.getElementById("arriba1");
-//   for (let i = 0; i < 3; i++) {
-//     const cartaHTML = document.createElement("div");
-//     cartaHTML.innerHTML = '<p class="cartaNegra">' + "🃞</p>";
-//     cartaHTML.classList.add("cartaArriba");
-//     cartaHTML.style.top = `${i * 30}px`;
-//     arriba.appendChild(cartaHTML);
-//   }
-// }
+function agregarCartaArriba() {
+  for (let i = 0; i < matrizMontones.length; i++) {
+    let nombreDiv = "arriba" + (i + 1);
+    const arriba = document.getElementById(nombreDiv);
+    if (matrizMontones[i].contadorCartasArriba > 0) {
+      let posicion = 3;
+      for (let j = 0; j < matrizMontones[i].contadorCartasArriba; j++) {
+        const cartaArriba = matrizMontones[i].cartas[j].naipe;
+        const cartaHTML = document.createElement("div");
+        cartaHTML.innerHTML = '<p class="cartaNegra">' + cartaArriba + "</p>";
+        cartaHTML.classList.add("cartaArriba");
+        cartaHTML.style.top = `${i * 30}px`;
+        arriba.appendChild(cartaHTML);
+      }
+    }
+  }
+}

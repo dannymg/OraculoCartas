@@ -25,13 +25,11 @@ body {
 .arriba {
     position: relative;
     background-color: white;
-    display: flex;
 }
 
 .cartaArriba {
     position: absolute;
     background-color: white;
-    display: inline;
 }
 
 .abajo {

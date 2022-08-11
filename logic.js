@@ -264,10 +264,13 @@ function cargarMontones(matrizMontones) {
 
 function agregarCartaArriba() {
   const arriba = document.getElementById("arriba1");
-  const cartaHTML = document.createElement("div");
-  cartaHTML.innerHTML = '<p class="cartaNegra">' + "🃞</p>";
-  cartaHTML.classList.add("cartaArriba");
-  arriba.appendChild(cartaHTML);
+  for (let i = 0; i < 3; i++) {
+    const cartaHTML = document.createElement("div");
+    cartaHTML.innerHTML = '<p class="cartaNegra">' + "🃞</p>";
+    cartaHTML.classList.add("cartaArriba");
+    cartaHTML.style.top = `${i * 30}px`;
+    arriba.appendChild(cartaHTML);
+  }
 }
 
 function llenarMontones(matrizMontones, baraja) {

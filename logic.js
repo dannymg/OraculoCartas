@@ -193,7 +193,8 @@ function oraculo() {
   if (
     iMontonActual == iMontonSiguiente &&
     !matrizMontones[iMontonActual].existenCartas &&
-    matrizMontones[iMontonActual].cartas.length <= 4
+    matrizMontones[iMontonActual].cartas.length <= 4 &&
+    !bandera
   ) {
     return alert("Perdiste :(");
   }
@@ -536,15 +537,26 @@ function agregarCartaArriba() {
   for (let i = 0; i < matrizMontones.length; i++) {
     let nombreDiv = "arriba" + (i + 1);
     const arriba = document.getElementById(nombreDiv);
-    if (matrizMontones[i].contadorCartasArriba > 0) {
+    if (
+      matrizMontones[i].contadorCartasArriba > 0 &&
+      matrizMontones[i].cartas.length == 4
+    ) {
       let posicion = 3;
       for (let j = 0; j < matrizMontones[i].contadorCartasArriba; j++) {
-        const cartaArriba = matrizMontones[i].cartas[j].naipe;
+        const cartaArriba = matrizMontones[i].cartas[posicion];
+        let subirCarta = "";
+        if (cartaArriba.color == "rojo") {
+          subirCarta = '<p class="cartaRoja">' + cartaArriba.naipe + "</p>";
+        }
+        if (cartaArriba.color == "negro") {
+          subirCarta = '<p class="cartaNegra">' + cartaArriba.naipe + "</p>";
+        }
         const cartaHTML = document.createElement("div");
-        cartaHTML.innerHTML = '<p class="cartaNegra">' + cartaArriba + "</p>";
+        cartaHTML.innerHTML = subirCarta;
         cartaHTML.classList.add("cartaArriba");
-        cartaHTML.style.top = `${i * 30}px`;
+        cartaHTML.style.top = `${(i + j) * 30}px`;
         arriba.appendChild(cartaHTML);
+        posicion--;
       }
     }
   }

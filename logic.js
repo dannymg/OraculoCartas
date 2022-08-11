@@ -526,6 +526,13 @@ function barajar(baraja) {
 }
 
 function agregarCartaArriba() {
+  // Limpiando el div
+  for (let i = 1; i <= 13; i++) {
+    let nombreDiv = "arriba" + i;
+    const arriba = document.getElementById(nombreDiv);
+    arriba.innerHTML = "";
+  }
+
   for (let i = 0; i < matrizMontones.length; i++) {
     let nombreDiv = "arriba" + (i + 1);
     const arriba = document.getElementById(nombreDiv);

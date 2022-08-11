@@ -1,0 +1,125 @@
+body {
+    background-color: beige;
+    background-image: url("media/tabla.jpg");
+}
+
+.mesa {
+    background-image: url("media/mesa.jpg");
+    background-size: cover;
+    border-color: black;
+    border-radius: 50px;
+    border: solid;
+    border-width: 5px;
+}
+
+.contenedor {
+    position: inherit;
+    background-color: white;
+    font-size: 75px;
+    transition: all 1s;
+    width: fit-content;
+    height: fit-content;
+    max-height: max-content;
+}
+
+.arriba {
+    position: relative;
+    background-color: white;
+    display: flex;
+}
+
+.cartaArriba {
+    position: absolute;
+    background-color: white;
+    display: inline;
+}
+
+.abajo {
+    position: relative;
+    background-color: white;
+    display: inline;
+}
+
+.monton{
+    background-color: white;
+    font-size: 120px;
+    transition: all 1s;
+}
+
+
+
+.cartaEscogidaNegra{
+    position: absolute;
+    background-color: white;
+    color: blue;
+    float:left;
+    top: 0;
+    left: 10;
+    right: 0;
+    margin: 0 auto;
+}
+
+.opciones{
+    background-color: aqua;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-image: url("media/opcion.jpg");
+    background-size: cover;
+    border: solid;
+    border-width: 10px;
+    border-radius: 100px;
+    border-color: purple;
+}
+
+.flecha {
+    background-color: transparent;
+    font-size: 130px;
+    color: blue;
+    display: inline;
+}
+
+
+.texto {
+    font-weight: 600;
+    color: coral;
+    font-size: 50px;
+    margin-bottom: 0px;
+    background: transparent;
+}
+
+.cartaNegra {
+    background-color: white;
+    color: black;
+    display: inline;
+}
+
+.cartaRoja {
+    background-color: white;
+    color: red;
+    display: inline;
+}
+
+.cartaMonton {
+    background-color: white;
+    color: blueviolet;
+    display: inline;
+}
+
+.boton{
+    font-size: 20px;
+    height: 60px;
+    width: 200px;
+    font-family: Cambria;
+    font-weight: 600;
+    color: black;
+    background-color: darkorange;
+    border-radius: 20px;
+    border-width: 5px;
+    border-color: aqua;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+}

@@ -64,18 +64,29 @@ const naipeDiamante = [
 //Conjunto de cartas
 var naipeCarta = naipeTrebol.concat(naipePica, naipeCorazon, naipeDiamante);
 var contadorMovimientoOraculo = 0;
+
 //Generar la primera baraja
 var barajaOrigen = generarBaraja();
 cargarCartas(barajaOrigen);
 
 //Barajar al dar click en el botón
-let botonBarajar = document.getElementById("botonBarajar");
-botonBarajar.addEventListener("click", function () {
+let botonJugar = document.getElementById("botonJugar");
+botonJugar.addEventListener("click", function () {
   let baraja = barajaOrigen;
   barajaOrigen = barajar(baraja);
-  contadorMovimientoOraculo = 0;
-  oraculo(barajaOrigen);
-  agregarCartaArriba();
+  // Montones inciales
+
+  matrizMontones = crearMatrizMonton();
+  matrizMontones = llenarMontones(matrizMontones, barajaOrigen);
+});
+
+//Siguiente paso
+var matrizMontones = new Array(13);
+let botonOraculo = document.getElementById("botonOraculo");
+botonOraculo.addEventListener("click", function () {
+  contadorMovimientoOraculo += 1;
+  oraculo();
+  //agregarCartaArriba();
 });
 
 //Cambio del console.log
@@ -168,19 +179,18 @@ function cargarCartas(baraja) {
   }
 }
 
-function oraculo(baraja) {
-  matrizMontones = crearMatrizMonton();
-  matrizMontones = llenarMontones(matrizMontones, baraja);
-  [matrizMontones, ganaste] = jugarOraculo(matrizMontones, 12);
-  console.log("final");
-  console.log(ganaste);
+var iMontonActual = 0;
+var iMontonSiguiente = 12;
+
+function oraculo() {
+  iMontonActual = iMontonSiguiente;
+  jugarOraculo();
   console.log(matrizMontones);
   cargarMontones(matrizMontones);
 }
 
 //Matriz de montones. Cuatro arreglos contienen las cartas
 function crearMatrizMonton() {
-  let matrizMontones = new Array(13);
   for (let i = 0; i < matrizMontones.length; i++) {
     matrizMontones[i] = crearMonton(i + 1);
   }
@@ -233,44 +243,8 @@ function cargarMontones(matrizMontones) {
         contadorMonton++;
         element.innerHTML += "<br>";
       }
-
-      //       //Si la carta es de color rojo, ubicar dicho estilo class="cartaRoja"
-      //       if (cartas[i].color == "rojo") {
-      //         nuevaCarta =
-      //           `<div class="carta" style="top: ${i * 5}px;"><p class="cartaRoja">` +
-      //           cartas[i].naipe +
-      //           "</p></div>";
-      //       }
-      //       //Si la carta es de color negro, ubicar dicho estilo class="cartaNegra"
-      //       if (cartas[i].color == "negro") {
-      //         nuevaCarta =
-      //           `<div class="carta" style="top: ${i * 5}px;"><p class="cartaNegra">` +
-      //           cartas[i].naipe +
-      //           "</p></div>";
-      //       }
-      //       let contenedor = "M" + contadorMonton;
-      //       const element = document.getElementById(contenedor);
-      //       element.innerHTML += nuevaCarta;
-      //       contadorReinicio++;
-      //       //Salto de linea si se llega a las 4 cartas
-      //       if (contadorReinicio == cartas.length) {
-      //         contadorReinicio = 0;
-      //         contadorMonton++;
-      //         element.innerHTML += "<br>";
-      //       }
     }
   });
-}
-
-function agregarCartaArriba() {
-  const arriba = document.getElementById("arriba1");
-  for (let i = 0; i < 3; i++) {
-    const cartaHTML = document.createElement("div");
-    cartaHTML.innerHTML = '<p class="cartaNegra">' + "🃞</p>";
-    cartaHTML.classList.add("cartaArriba");
-    cartaHTML.style.top = `${i * 30}px`;
-    arriba.appendChild(cartaHTML);
-  }
 }
 
 function llenarMontones(matrizMontones, baraja) {
@@ -320,26 +294,23 @@ function llenarMontones(matrizMontones, baraja) {
   return matrizMontones;
 }
 
-function jugarOraculo(matrizMontones, iMontonActual) {
+function jugarOraculo() {
   console.log(matrizMontones);
 
   if (matrizMontones[iMontonActual].contadorCartasArriba <= 4) {
-    const divEscogida = document.getElementById("ESCOGIDA");
+    const divEscogida = document.getElementById("cartaEscogida");
     divEscogida.innerHTML = "";
 
     let cartaEscogida = matrizMontones[iMontonActual].cartas.shift();
 
-    let cargarEscogida = function () {
-      let carta = '<p class="cartaRoja">' + baraja[i].naipe + "</p>";
-      divEscogida.innerHTML = carta;
-    };
-    setTimeout(cargarEscogida, 3000);
+    let carta = '<p class="cartaEscogida">' + cartaEscogida + "</p>";
+    divEscogida.innerHTML = carta;
 
     console.log(iMontonActual);
     console.log(matrizMontones[iMontonActual]);
     console.log(cartaEscogida);
 
-    let iMontonSiguiente = cartaEscogida.numero - 1;
+    iMontonSiguiente = cartaEscogida.numero - 1;
     cartaEscogida.estado = "ARRIBA";
 
     matrizMontones[iMontonSiguiente].cartas.push(cartaEscogida);
@@ -350,18 +321,7 @@ function jugarOraculo(matrizMontones, iMontonActual) {
     }
     console.log(iMontonSiguiente);
     console.log(matrizMontones[iMontonSiguiente]);
-
-    jugarOraculo(matrizMontones, iMontonSiguiente);
   }
-
-  let ganaste = true;
-  matrizMontones.forEach((monton) => {
-    if (monton.existenCartas) {
-      ganaste = false;
-    }
-  });
-
-  return [matrizMontones, ganaste];
 }
 
 /*
@@ -544,3 +504,14 @@ function barajar(baraja) {
   cargarCartas(nuevaBaraja);
   return nuevaBaraja;
 }
+
+//function agregarCartaArriba() {
+//   const arriba = document.getElementById("arriba1");
+//   for (let i = 0; i < 3; i++) {
+//     const cartaHTML = document.createElement("div");
+//     cartaHTML.innerHTML = '<p class="cartaNegra">' + "🃞</p>";
+//     cartaHTML.classList.add("cartaArriba");
+//     cartaHTML.style.top = `${i * 30}px`;
+//     arriba.appendChild(cartaHTML);
+//   }
+// }

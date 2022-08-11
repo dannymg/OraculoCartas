@@ -23,6 +23,7 @@ body {
 }
 
 .arriba {
+    width: 90%;
     position: relative;
     background-color: white;
 }
@@ -35,7 +36,6 @@ body {
 .abajo {
     position: relative;
     background-color: white;
-    display: inline;
 }
 
 .monton{
@@ -46,10 +46,10 @@ body {
 
 
 
-.cartaEscogidaNegra{
+.cartaEscogida{
     position: absolute;
     background-color: white;
-    color: blue;
+    color: blueviolet;
     float:left;
     top: 0;
     left: 10;

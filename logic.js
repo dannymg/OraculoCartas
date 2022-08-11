@@ -183,6 +183,25 @@ var iMontonActual = 0;
 var iMontonSiguiente = 12;
 
 function oraculo() {
+  let bandera = true;
+  for (let i = 0; i < matrizMontones.length; i++) {
+    if (matrizMontones[i].existenCartas == true) {
+      bandera = false;
+    }
+  }
+
+  if (
+    iMontonActual == iMontonSiguiente &&
+    !matrizMontones[iMontonActual].existenCartas &&
+    matrizMontones[iMontonActual].cartas.length <= 4
+  ) {
+    return alert("Perdiste :(");
+  }
+
+  if (iMontonActual == iMontonSiguiente && bandera) {
+    return alert("Ganaste :D");
+  }
+
   iMontonActual = iMontonSiguiente;
   jugarOraculo();
   console.log(matrizMontones);
